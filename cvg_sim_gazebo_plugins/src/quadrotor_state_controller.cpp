@@ -64,7 +64,7 @@ void GazeboQuadrotorStateController::Load(physics::ModelPtr _model, sdf::Element
   else
     takeoff_topic_ = _sdf->GetElement("takeoffTopic")->Get<std::string>();
 
-  if (!_sdf->HasElement("/ardrone/land"))
+  if (!_sdf->HasElement("landTopic"))
     land_topic_ = "/ardrone/land";
   else
     land_topic_ = _sdf->GetElement("landTopic")->Get<std::string>();
