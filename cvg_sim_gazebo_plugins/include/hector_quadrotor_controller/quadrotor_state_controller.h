@@ -130,6 +130,8 @@ private:
 
   std::string link_name_;
   std::string namespace_;
+  std::string robot_namespace_;
+  std::string node_namespace_;
   std::string velocity_topic_;
   std::string takeoff_topic_;
   std::string land_topic_;

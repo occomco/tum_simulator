@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Include the world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find cvg_sim_gazebo)/worlds/ardrone_testworld.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+       
+
+  <!-- send the robot XML to param server -->
+  <arg name="model_urdf" value="$(find cvg_sim_gazebo)/urdf/quadrotor_sensors.urdf.xacro"/>
+
+  <!-- Spawn 1st simulated quadrotor uav -->
+  <group ns="ardrone_1">  
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model_urdf)'"/>
+    <node name="spawn_robot_ardrone" pkg="gazebo_ros" type="spawn_model"
+          args="-param robot_description
+                -urdf
+                -x 0.0 
+                -y 0
+                -z 0.5
+                -R 0
+                -P 0 
+                -Y 0
+                -model ardrone_1"
+           respawn="false" output="screen"/>
+
+    <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" >
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="ardrone_1" />
+    </node>
+    <node name="ground_truth_to_tf" pkg="message_to_tf" type="message_to_tf" output="screen">
+      <param name="odometry_topic" value="ground_truth/state" />
+      <param name="frame_id" value="nav" />
+      <param name="tf_prefix" value="ardrone_1" />
+    </node>
+  </group> 
+
+
+  <!-- Spawn 2nd simulated quadrotor uav -->
+  <group ns="ardrone_2">
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model_urdf)'"/>
+    <node name="spawn_robot_ardrone_2" pkg="gazebo_ros" type="spawn_model"
+          args="-param robot_description
+                -urdf
+                -x 2.0 
+                -y 0
+                -z 0.5
+                -R 0
+                -P 0 
+                -Y 0
+                -model ardrone_2"
+          respawn="false" output="screen"/>
+     
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher_2" output="screen" >
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="ardrone_2" />
+    </node>
+ 
+    <node name="ground_truth_to_tf_2" pkg="message_to_tf" type="message_to_tf" output="screen">
+      <param name="odometry_topic" value="ground_truth/state" />
+      <param name="frame_id" value="nav" />
+      <param name="tf_prefix" value="ardrone_2" />
+    </node>
+  </group>
+
+  <!-- Spawn 3rd simulated quadrotor uav -->
+  <group ns="ardrone_3">
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model_urdf)'"/>
+    <node name="spawn_robot_ardrone_3" pkg="gazebo_ros" type="spawn_model"
+          args="-param robot_description
+                -urdf
+                -x 1.0 
+                -y 0
+                -z 0.5
+                -R 0
+                -P 0 
+                -Y 0
+                -model ardrone_3"
+          respawn="false" output="screen"/>
+ 
+    <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher_3" output="screen" >   
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="ardrone_3"/>
+    </node>
+ 
+    <node name="ground_truth_to_tf_3" pkg="message_to_tf" type="message_to_tf" output="screen">
+      <param name="odometry_topic" value="ground_truth/state" />
+      <param name="frame_id" value="nav" />
+      <param name="tf_prefix" value="ardrone_3"/>
+    </node> 
+  </group>
+
+</launch>
