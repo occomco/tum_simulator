@@ -30,7 +30,7 @@
                 -model ardrone_1"
            respawn="false" output="screen"/>
 
-    <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" >
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
       <param name="publish_frequency" type="double" value="50.0" />
       <param name="tf_prefix" value="ardrone_1" />
     </node>
@@ -84,7 +84,7 @@
                 -model ardrone_3"
           respawn="false" output="screen"/>
  
-    <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher_3" output="screen" >   
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher_3" output="screen" >   
       <param name="publish_frequency" type="double" value="50.0" />
       <param name="tf_prefix" value="ardrone_3"/>
     </node>
