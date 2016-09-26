@@ -7,14 +7,14 @@
    <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
    
    <!-- push robot_description to factory and spawn robot in gazebo -->
-   <node name="spawn_robot" pkg="gazebo" type="spawn_model"
+   <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
    args="-param robot_description
    -urdf
    -x -2.5
    -y 0.5
    -z 0.5
    -Y 3.14159
-   -model quadrotor"
+   -model quadrotor2"
      respawn="false" output="screen"/>
      
    <!-- start robot state publisher -->
