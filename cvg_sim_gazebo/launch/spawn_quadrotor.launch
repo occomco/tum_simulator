@@ -10,7 +10,7 @@
    <arg name="P" default="0"/>
    <arg name="Y" default="0"/>
    <!-- send the robot XML to param server -->
-   <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
+   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg model)'" />
    
    <!-- push robot_description to factory and spawn robot in gazebo -->
    <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
